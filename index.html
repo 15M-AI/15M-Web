@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pico 15M — Sovereign Micro-Intelligence by 15M AI</title>
+    
+    <!-- Tipografía oficial estilo Mistral AI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-main: #0B0B0E;
+            --bg-card: #111116;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-bright: rgba(255, 255, 255, 0.18);
+            --text-primary: #FFFFFF;
+            --text-secondary: #9E9EA7;
+            --text-muted: #5C5C66;
+            
+            --orange-primary: #FF4500;
+            --orange-bright: #FF6600;
+            --amber-yellow: #FFB700;
+            
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Geist Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.4;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR ESTILO MISTRAL --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(11, 11, 14, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .brand img {
+            height: 22px;
+            width: auto;
+            border-radius: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            border-left: 1px solid var(--border-color);
+            padding-left: 1.5rem;
+        }
+
+        .nav-links li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.5rem 0.9rem;
+            transition: color 0.15s;
+        }
+
+        .nav-links li a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .badge-license {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+        }
+
+        .btn-nav {
+            background: transparent;
+            border: 1px solid var(--border-bright);
+            color: var(--text-primary);
+            padding: 0.35rem 0.85rem;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-nav:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            min-height: calc(100vh - 56px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 5rem 2rem 8rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .hero-title {
+            font-size: clamp(2.8rem, 6vw, 5.2rem);
+            font-weight: 500;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            max-width: 1050px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title span.flag {
+            display: inline-block;
+            margin: 0 0.2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .pill-announcement {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(20, 20, 26, 0.9);
+            border: 1px solid var(--border-bright);
+            padding: 0.55rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 0.88rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .pill-announcement:hover {
+            border-color: var(--orange-primary);
+            transform: translateY(-2px);
+        }
+
+        .pill-icon {
+            width: 22px;
+            height: 22px;
+            background: var(--amber-yellow);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        /* --- PIXEL ART ACCENTS EN ESQUINAS --- */
+        .pixel-corner-left {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            align-items: flex-end;
+            pointer-events: none;
+        }
+
+        .pixel-corner-right {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: flex-end;
+            pointer-events: none;
+        }
+
+        .pixel-block {
+            width: 32px;
+            height: 32px;
+        }
+        .bg-orange { background-color: var(--orange-primary); }
+        .bg-amber { background-color: var(--amber-yellow); }
+        .bg-red { background-color: #E62E00; }
+
+        /* --- STRIP DE ESPECIFICACIONES (REEMPLAZO DE LOGOS FALSOS) --- */
+        .specs-strip {
+            width: 100%;
+            background-color: var(--bg-main);
+            border-bottom: 1px solid var(--border-color);
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        .spec-cell {
+            padding: 1.5rem 1rem;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .spec-cell:last-child {
+            border-right: none;
+        }
+
+        .spec-val {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .spec-lbl {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-top: 0.2rem;
+        }
+
+        /* --- NODE GRAPH SECTION --- */
+        .node-section {
+            padding: 7rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            background: radial-gradient(circle at center, rgba(255, 69, 0, 0.03) 0%, transparent 70%);
+        }
+
+        .section-heading-lg {
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-weight: 500;
+            letter-spacing: -1px;
+            max-width: 900px;
+            margin: 0 auto 4rem auto;
+            line-height: 1.15;
+        }
+
+        .node-cloud {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.2rem;
+            position: relative;
+        }
+
+        .node-tag {
+            background-color: #121217;
+            border: 1px solid var(--border-color);
+            padding: 0.65rem 1.2rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            font-family: var(--font-mono);
+        }
+
+        .node-tag.highlight {
+            border-color: var(--border-bright);
+            color: var(--text-primary);
+            background-color: #1A1A22;
+        }
+
+        /* --- TABBED INTERACTIVE SHOWCASE --- */
+        .interactive-section {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            border: 1px solid var(--border-color);
+            background-color: #0E0E12;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .sidebar-menu {
+            border-right: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            text-align: left;
+            padding: 1rem 1.5rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .menu-btn.active {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.05);
+            border-left: 2px solid var(--orange-primary);
+        }
+
+        .showcase-content {
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .showcase-text h3 {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .showcase-text p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.8rem;
+        }
+
+        .link-arrow {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .link-arrow:hover {
+            text-decoration: underline;
+        }
+
+        .showcase-art {
+            background: #14141A;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .showcase-art img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        /* --- "GO DEEPER" THREE CARDS --- */
+        .go-deeper-section {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .cards-3-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .card-deeper {
+            background-color: #0E0E12;
+            border: 1px solid var(--border-color);
+            padding: 2.5rem 2rem;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 280px;
+            transition: border-color 0.2s;
+        }
+
+        .card-deeper:hover {
+            border-color: var(--border-bright);
+        }
+
+        .card-icon {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.5px;
+        }
+
+        .card-desc {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+
+        .btn-card {
+            background-color: rgba(255,255,255,0.06);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.55rem 1rem;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            width: fit-content;
+            transition: background 0.2s;
+        }
+
+        .btn-card:hover {
+            background-color: rgba(255,255,255,0.12);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--border-color);
+            background-color: #070709;
+            padding: 5rem 2rem 3rem 2rem;
+        }
+
+        .footer-grid {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr) 2fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-col h5 {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .footer-col a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.15s;
+        }
+
+        .footer-col a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-bottom {
+            max-width: 1440px;
+            margin: 0 auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-family: var(--font-mono);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .showcase-grid { grid-template-columns: 1fr; }
+            .sidebar-menu { border-right: none; border-bottom: 1px solid var(--border-color); flex-direction: row; overflow-x: auto; }
+            .showcase-content { grid-template-columns: 1fr; }
+            .cards-3-grid { grid-template-columns: 1fr; }
+            .specs-strip { grid-template-columns: repeat(3, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR estilo Mistral AI -->
+    <header>
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="#" class="brand">
+                    <img src="IMG2.jpg" alt="15M AI Logo">
+                    <span>15M AI</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#overview">Pico 15M</a></li>
+                    <li><a href="#architecture">Arquitectura</a></li>
+                    <li><a href="#capabilities">Capacidades</a></li>
+                    <li><a href="#quickstart">Quickstart</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-right">
+                <span class="badge-license">Apache 2.0</span>
+                <a href="https://ollama.com/15M-AI/pico" target="_blank" class="btn-nav">
+                    Ollama Hub ↗
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="overview">
+        <h1 class="hero-title">
+            Pico 15M <span class="flag">🚩</span> is #1<br>in Micro Open AI.
+        </h1>
+
+        <p class="hero-subtitle">
+            Un micro-modelo autorregresivo de 15M de parámetros diseñado para latencia ultratransparente, autocompletado instantáneo y ejecución 100% local en CPU o dispositivos embebidos.
+        </p>
+
+        <a href="https://ollama.com/15M-AI/pico" target="_blank" class="pill-announcement">
+            <span class="pill-icon">⚡</span>
+            <span><code>ollama run 15M-AI/pico</code></span>
+            <span style="color: var(--text-muted);">↗</span>
+        </a>
+
+        <!-- BLOQUES DE PIXEL ART EN LAS ESQUINAS INFERIORES -->
+        <div class="pixel-corner-left">
+            <div class="pixel-block bg-orange"></div>
+            <div class="pixel-block bg-amber"></div>
+            <div class="pixel-block bg-red"></div>
+        </div>
+
+        <div class="pixel-corner-right">
+            <div class="pixel-block bg-amber"></div>
+            <div class="pixel-block bg-orange"></div>
+            <div class="pixel-block bg-red"></div>
+        </div>
+    </section>
+
+    <!-- METRICAS Y DATOS TÉCNICOS REALES (Sin logos falsos) -->
+    <div class="specs-strip">
+        <div class="spec-cell">
+            <span class="spec-val">15M</span>
+            <span class="spec-lbl">Parámetros</span>
+        </div>
+        <div class="spec-cell">
+            <span class="spec-val">~60 MB</span>
+            <span class="spec-lbl">Huella en RAM</span>
+        </div>
+        <div class="spec-cell">
+            <span class="spec-val">&lt; 5ms</span>
+            <span class="spec-lbl">Latencia Inferencia</span>
+        </div>
+        <div class="spec-cell">
+            <span class="spec-val">CPU Native</span>
+            <span class="spec-lbl">Sin GPU Necesaria</span>
+        </div>
+        <div class="spec-cell">
+            <span class="spec-val">GGUF</span>
+            <span class="spec-lbl">Formato Ollama</span>
+        </div>
+        <div class="spec-cell">
+            <span class="spec-val">Apache 2.0</span>
+            <span class="spec-lbl">Open Source</span>
+        </div>
+    </div>
+
+    <!-- NODE GRAPH SECTION -->
+    <section class="node-section" id="architecture">
+        <h2 class="section-heading-lg">
+            No one else should hold the strings to your local intelligence.
+        </h2>
+
+        <div class="node-cloud">
+            <span class="node-tag">15M Parameters</span>
+            <span class="node-tag highlight">📙 100% Local Inference</span>
+            <span class="node-tag">Zero Telemetry</span>
+            <span class="node-tag highlight">📁 Apache 2.0</span>
+            <span class="node-tag highlight">📊 CPU Single Thread</span>
+            <span class="node-tag">Edge Computing</span>
+            <span class="node-tag">GPT-2 Architecture</span>
+            <span class="node-tag highlight">🔑 6 Layers / 6 Heads</span>
+            <span class="node-tag highlight">💻 GGUF Quantized</span>
+            <span class="node-tag">Embedding Dim 384</span>
+            <span class="node-tag">Syntax Completion</span>
+            <span class="node-tag">Ollama Native</span>
+        </div>
+    </section>
+
+    <!-- TABBED INTERACTIVE SHOWCASE -->
+    <section class="interactive-section" id="capabilities">
+        <h2 class="section-heading-lg" style="margin-bottom: 2.5rem; text-align: left;">
+            15M AI lets you decide how AI works in your environment.
+        </h2>
+
+        <div class="showcase-grid">
+            <div class="sidebar-menu">
+                <button class="menu-btn active" onclick="switchTab(0, this)">
+                    <span>Micro-Inferencia Local</span>
+                    <span>→</span>
+                </button>
+                <button class="menu-btn" onclick="switchTab(1, this)">
+                    <span>Rendimiento en CPU</span>
+                </button>
+                <button class="menu-btn" onclick="switchTab(2, this)">
+                    <span>Integración Ollama</span>
+                </button>
+                <button class="menu-btn" onclick="switchTab(3, this)">
+                    <span>Licencia Abierta</span>
+                </button>
+            </div>
+
+            <div class="showcase-content">
+                <div class="showcase-text">
+                    <h3 id="tab-title">We make the micro-models.<br>You keep them.</h3>
+                    <p id="tab-desc">
+                        Pico-15M es un modelo de pesos abiertos ultra-ligero. Ejecútalo localmente en tu terminal o en dispositivos IoT sin enviar datos a servidores externos.
+                    </p>
+                    <a href="https://ollama.com/15M-AI/pico" target="_blank" class="link-arrow">Probar en Ollama ↗</a>
+                </div>
+
+                <div class="showcase-art">
+                    <img id="tab-img" src="IMG1.jpg" alt="15M AI Architecture">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- "GO DEEPER" SECTION -->
+    <section class="go-deeper-section" id="quickstart">
+        <h2 style="font-size: 2.5rem; font-weight: 500; letter-spacing: -1px;">Go deeper.</h2>
+
+        <div class="cards-3-grid">
+            <div class="card-deeper">
+                <div>
+                    <div class="card-icon">⚡</div>
+                    <div class="card-title">Arquitectura</div>
+                    <div class="card-desc">
+                        Decoder-only Transformer optimizado con 6 capas y dimensión de 384 para máxima eficiencia en uso de memoria y caché KV.
+                    </div>
+                </div>
+                <a href="#architecture" class="btn-card">Saber más ↗</a>
+            </div>
+
+            <div class="card-deeper">
+                <div>
+                    <div class="card-icon">💻</div>
+                    <div class="card-title">Ollama Quickstart</div>
+                    <div class="card-desc">
+                        Descarga e integra Pico 15M con un solo comando en terminal usando Ollama o librerías de generación como Python.
+                    </div>
+                </div>
+                <a href="https://ollama.com/15M-AI/pico" target="_blank" class="btn-card">Ver repositorio ↗</a>
+            </div>
+
+            <div class="card-deeper">
+                <div>
+                    <div class="card-icon">🛡️</div>
+                    <div class="card-title">Sovereignty & Privacy</div>
+                    <div class="card-desc">
+                        Bajo la licencia Apache 2.0, tienes libertad total para integrar el modelo en proyectos comerciales, investigación o sistemas Edge sin restricciones.
+                    </div>
+                </div>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <a href="#" class="btn-card">Licencia Apache 2.0 ↗</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h5>Proyecto</h5>
+                <ul>
+                    <li><a href="#overview">Pico 15M</a></li>
+                    <li><a href="#architecture">Arquitectura</a></li>
+                    <li><a href="#capabilities">Capacidades</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Recursos</h5>
+                <ul>
+                    <li><a href="https://ollama.com/15M-AI/pico" target="_blank">Ollama Hub</a></li>
+                    <li><a href="#quickstart">Quickstart</a></li>
+                    <li><a href="#">Documentación</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Licencia</h5>
+                <ul>
+                    <li><a href="#">Apache 2.0</a></li>
+                    <li><a href="#">Privacidad Local</a></li>
+                    <li><a href="#">Uso Comercial Libre</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col" style="text-align: right;">
+                <img src="IMG2.jpg" alt="15M AI Logo" style="height: 32px; border-radius: 4px; margin-bottom: 1rem;">
+                <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5;">
+                    Micro-modelos soberanos desarrollados para inferencia en tiempo real, dispositivos de borde y ejecución local con mínima huella de memoria.
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 15M AI • Creada por 15M AI</span>
+            <span>Licencia Apache 2.0</span>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVIDAD JS -->
+    <script>
+        const tabsData = [
+            {
+                title: "We make the micro-models.<br>You keep them.",
+                desc: "Pico-15M es un modelo de pesos abiertos ultra-ligero. Ejecútalo localmente en tu terminal o en dispositivos IoT sin enviar datos a servidores externos."
+            },
+            {
+                title: "Inferencia ultra-rápida.<br>Cero consumo de GPU.",
+                desc: "Gracias a sus 15M de parámetros, el modelo genera más de 180 tokens por segundo en un solo hilo de CPU consumiendo menos de 60 MB de RAM."
+            },
+            {
+                title: "Ecosistema estándar.<br>Formato GGUF nativo.",
+                desc: "Cárgalo directamente en Ollama o en cualquier runner basado en llama.cpp sin necesidad de configuraciones complejas ni dependencias pesadas."
+            },
+            {
+                title: "Licencia comercial libre.<br>Apache License 2.0.",
+                desc: "Modifica, integra y distribuye Pico-15M en tus aplicaciones comerciales o institucionales con total libertad de uso."
+            }
+        ];
+
+        function switchTab(index, btn) {
+            document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            document.getElementById('tab-title').innerHTML = tabsData[index].title;
+            document.getElementById('tab-desc').innerText = tabsData[index].desc;
+        }
+    </script>
+</body>
+</html>
